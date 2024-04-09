@@ -69,8 +69,9 @@ export default function ProductDetails() {
             <Card className="w-xxl-90 w-xl-90 w-lg-70 w-md-90 mx-auto">
                 <Card.Body>
                     <div className="row">
-                        <div className="col-md-4">
+                        <div className="col-md-4 position-relative">
                             <img src={process.env.REACT_APP_BASE_URL + "/uploads/" + file} className="img-fluid rounded-start" alt={name} />
+                            <div className="overlay"></div>
                         </div>
                         <div className="col-md-8 d-flex flex-column align-items-start px-5">
                             <h5 className="card-title">{name}</h5>

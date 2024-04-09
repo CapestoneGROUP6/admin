@@ -5,7 +5,10 @@ import { Book } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { Trash } from 'react-bootstrap-icons';
 import { Pencil, Eye } from 'react-bootstrap-icons';
-
+import { Grid, IconButton, Paper, Typography } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function AdminProductsList({ categoryId = '' }) {
     const [products, setProducts] = useState([]);
@@ -46,38 +49,43 @@ export default function AdminProductsList({ categoryId = '' }) {
     };
 
     return (
-        <Container className="mt-4">
-            <Row>
-                {products?.map((product) => (
-                    <Col key={product.ID} md={4} className="mb-4">
-                        <Card style={{ height: '100%', width: '20rem' }}>
-                            <Card.Img
-                                variant="top"
-                                src={process.env.REACT_APP_BASE_URL + "/uploads/" + product.Image}
-                                alt={product.NAME}
-                                style={{ maxHeight: '20rem' }}
-                            />
-                            <Card.Body>
-                                <div style={{ minHeight: '6rem', maxHeight: '6rem' }}>
-                                    <Card.Title>{product.NAME}</Card.Title>
-                                    <Card.Text >{product.Description}</Card.Text>
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <Button color="primary" onClick={() => navigate("/productdetails/" + product.ID)}>
-                                        <Eye size={20}></Eye> View
-                                    </Button>&nbsp;&nbsp;
-                                    <Button color="error" onClick={() => handleEdit(product.ID)}>
-                                        <Pencil size={20}></Pencil> Edit
-                                    </Button>&nbsp;&nbsp;
-                                    <Button className='btn btn-outline btn-danger' onClick={() => handleDelete(product.ID)}>
-                                        <Trash size={20}></Trash> Delete
-                                    </Button>&nbsp;&nbsp;
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ))}
-            </Row>
-        </Container>
+        <>
+            <Grid container direction='column' spacing={2} justifyContent='center'>
+                <Grid item>
+                    <h2 className='text-center'>All Books</h2>
+                </Grid>
+                <Grid item container justifyContent='center' spacing={2}>
+                    {
+                        products?.map(product => {
+                            return <Grid item key={product.ID} xs={6} md={3} style={{marginTop: '2rem'}}>
+                                <Paper elevation={10}>
+                                    <Grid container direction='column' spacing={2}>
+                                        <Grid item display={'flex'} justifyContent='center'>
+                                            <img style={{
+                                                width: '10rem',
+                                                height: '10rem',
+                                                objectFit: 'contain',
+                                                cursor: 'pointer'
+                                            }} onClick={() => navigate("/productdetails/" + product.ID)} alt={product.NAME} src={process.env.REACT_APP_BASE_URL + "/uploads/" + product.Image} />
+                                        </Grid><br />
+                                        <Grid item display='flex' flexDirection='column' gap={2}>
+                                            <Typography variant='h5'>{product.NAME}</Typography>
+                                            <Typography>Price: ${product.PRICE}</Typography>
+                                        </Grid>
+                                        <Grid item display='flex' alignItems='center' gap={1}>
+                                            <IconButton onClick={() => navigate("/productdetails/" + product.ID)}><VisibilityIcon  color='primary'/></IconButton>
+                                            <IconButton onClick={() => handleEdit(product.ID)}><EditIcon color='primary'/></IconButton>
+                                            <IconButton onClick={() => handleDelete(product.ID)}><DeleteIcon color='error'/></IconButton>
+                                        </Grid>
+                                    </Grid>
+                                </Paper>
+                            </Grid>
+                        })
+                    }
+                </Grid>
+            </Grid>
+
+        </>
+
     );
 }

@@ -6,6 +6,8 @@ import ApproveRejectProducts from './ApproveRejectProducts';
 import AdminProductsList from './AdminProductsList';
 import banner from '../images/book.jpg';
 import { useGlobalContext } from 'providers/GlobalProvider';
+import { Button, Grid, Paper } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Home() {
@@ -44,60 +46,43 @@ export default function Home() {
           <h1 style={{ textAlign: "center", margin: "3rem" }}>Welcome {user.NAME}</h1>
         </div>
       </div>
-      <Container>
-        <div>
-          <h3>Products</h3>
-          <hr></hr>
-        </div>
-        <Row>
-          <Col md={12}>
-            <Row>
-              <Col
-                xs={1}
-                onClick={() => changeCat('')}
-                className='homeCategoryDiv'
-                style={{
-                  cursor: 'pointer',
-                  borderRadius: '5px 5px',
-                  border: '1px solid #c4c4c4',
-                  padding: '1rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginRight: '8px',
-                }}
-              >
-                ALL
-              </Col>
-              {categories?.map(obj => (
-                <Col
-                  xs={1}
-                  key={obj.ID}
-                  onClick={() => changeCat(obj.ID)}
-                  className='homeCategoryDiv'
-                  style={{
-                    cursor: 'pointer',
-                    borderRadius: '5px 5px',
-                    border: '1px solid #c4c4c4',
-                    padding: '1rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginRight: '8px',
-                    backgroundColor: categoryId == obj.ID ? '#0d6efd': 'white',
-                    color: categoryId == obj.ID ? '#ffffff': 'black'
-                  }}
-                >
-                  {obj.NAME}
-                </Col>
-              ))}
-            </Row>
-          </Col>
-          <Col md={12}>
-            <AdminProductsList categoryId={categoryId}/>
-          </Col>
-        </Row>
-      </Container>
+      <Grid container direction='column' spacing={2}>
+        <Grid item>
+          <h3 className='text-center'>Products</h3>
+        </Grid>
+        <Grid item container spacing={2} justifyContent='center' alignItems='center'>
+          <Grid item xs={3} md={2}>
+            <Paper className='d-flex justify-content-center' elevation={15} style={{ cursor: 'pointer', padding: '20', borderRadius: '10px', height: '3rem' }} onClick={() => changeCat('')}>
+              <Grid container justifyContent='center' alignItems='center'>
+                <Grid item>
+                  ALL
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          {
+            categories?.map(obj => {
+              return <Grid item key={obj.ID} xs={3} md={2}>
+                <Paper className='d-flex justify-content-center' elevation={15} style={{
+                  cursor: 'pointer', padding: '20', borderRadius: '10px', backgroundColor: categoryId == obj.ID ? '#0d6efd' : 'white',
+                  color: categoryId == obj.ID ? '#ffffff' : 'black', height: '3rem'
+                }} onClick={() => changeCat(obj.ID)} >
+                  <Grid container justifyContent='center' alignItems='center'>
+                    <Grid item>
+                      {obj.NAME}
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </Grid>
+            })
+          }
+        </Grid>
+        <Grid item xs={10} container justifyContent='center'>
+          <Grid item xs={10}>
+          <AdminProductsList categoryId={categoryId}/>
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   );
 }

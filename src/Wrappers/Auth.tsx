@@ -1,3 +1,4 @@
+import Login from "pages/Login";
 import { useGlobalContext } from "providers/GlobalProvider";
 import React from "react";
 import { Navigate } from "react-router-dom";
@@ -12,6 +13,6 @@ export default function Auth(props: AuthType) {
   if (loggedIn) {
     return <>{props.element}</>;
   } else {
-    return <Navigate to="/" replace />;
+    return <Login />;
   }
 }

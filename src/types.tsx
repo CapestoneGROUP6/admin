@@ -31,6 +31,7 @@ export type User = {
   ADDRESS: string | null;
   ZIPCODE: string | null;
   ROLE: string | null;
+  disabled?: number // 1 || 0
 };
 
 export interface GlobalContextState {

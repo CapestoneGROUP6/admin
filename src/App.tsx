@@ -19,6 +19,7 @@ import CategoryForm from "pages/AdminCategories";
 import ProductDetails from "pages/ProductDetails";
 import AddEditProfile from "pages/AddEditProfile";
 import NewHeader from "components/NewHeader";
+import UserManagement from "pages/UserManagement";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
       <GlobalContextProvider>
         <RootWrapper>
           <NewHeader />
-          <div style={{ height: "80vh", padding: "15px", marginTop: '5rem' }}>
+          <div style={{minHeight:"80vh", padding:"15px",  marginTop: '5rem'}}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<NonAuth element={<Login />} />} />
@@ -44,9 +45,10 @@ function App() {
               <Route path="/editproduct/:id" element={<Auth element={<EditProduct />} />} />
               <Route path="/productdetails/:id" element={<Auth element={<ProductDetails />} />} />
               <Route path="/profile" element={<Auth element={<AddEditProfile />} />} />
+              <Route path="/usermgmt" element={<Auth element={<UserManagement />} />} />
             </Routes>
           </div>
-          {/* <Footer /> */}
+          <Footer />
         </RootWrapper>
       </GlobalContextProvider>
     </div>
