@@ -23,7 +23,9 @@ import UserManagement from "pages/UserManagement";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App czx">
+
+
       <GlobalContextProvider>
         <RootWrapper>
           <NewHeader />
